@@ -1,21 +1,21 @@
 <?php
 require_once "DB.php";
 
-class produto{
+class anuncio{
 
     private int $id;
 
-    public function __construct( private string $nome, private string $descricao, private float $preço, private int $dataDeValidade, private int $dataDeCriacao){
+    public function __construct( private string $nome, private string $descricao, private float $preço, private string $dataDeValidade, private string $dataDeCriacao){
     }
         public function getId():int{
             return $this->id;
-
+            
         }
         public function getNome():string{
             return $this->nome;
 
         }
-        public function getDesrição():string{
+        public function getDescrição():string{
             return $this->descricao;
 
         }
@@ -49,7 +49,7 @@ class produto{
         }
 
         public function inserir(){
-            $sql = "INSERT INTO anuncio (nome,descricao,preço,dataDeCriacao, dataDeValidade) VALUES ('$this->nome','$this->descricao','$this->preço', '$this->dataDeCriação', '$this->dataDeValidade')";
+            $sql = "INSERT INTO anuncio (Titulo,Descrição,Preço, Data_de_Validade) VALUES ('$this->nome','$this->descricao','$this->preço', '$this->dataDeValidade')";
             $db = new DB();
             $resultado = $db->manipular($sql);
             if($resultado==1){
@@ -63,11 +63,11 @@ class produto{
             $db = new DB();
             $resultado = $db->consultar($sql);
             if(is_array($resultado)){
-                $produto = array();
+                $anuncio = array();
                 foreach($resultado as $anuncioAux){
-                    $novoAnuncio = new Produto($anuncioAux['nome'],$anuncioAux['descricao'],$anuncioAux['preço'],$anuncioAux['preço']);
-                    $novoAnuncio->setId($anuncioAux['idProduto']);
-                    $novoAnuncio->setDataDeCriacao($anuncioAux['dataDeCriacao']);
+                    $novoAnuncio = new anuncio ($anuncioAux['Titulo'],$anuncioAux['Descrição'],$anuncioAux['Preço'],timestamp($anuncioAux['Data_de_Validade']));
+                    $novoAnuncio->setId($anuncioAux['ID']);
+                    $novoAnuncio->setDataDeCriacao($anuncioAux['Data_de_Criação']);
                     $anuncio[] = $novoAnuncio;
             }
             return $anuncio;
@@ -75,130 +75,8 @@ class produto{
             return false;
         }
     }
-    //AQUI COMEÇA A LISTAGEM POR LIGAS
-    public static function listarLaliga(){
-        $sql = "SELECT * FROM produto WHERE idliga=4";
-        $db = new DB();
-        $resultado = $db->consultar($sql);
-        if(is_array($resultado)){
-            $produto = array();
-            foreach($resultado as $produtoAux){
-                $novoProduto = new Produto($produtoAux['nome'],$produtoAux['idLiga'],$produtoAux['estoque'],$produtoAux['preço']);
-                $novoProduto->setIdProduto($produtoAux['idProduto']);
-                $novoProduto->setFoto($produtoAux['foto']);
-                $produto[] = $novoProduto;
-        }
-        return $produto;
-        } else {
-            return false;
-        }
-    }
-
-    public static function listarLiganos(){
-        $sql = "SELECT * FROM produto WHERE idliga=7";
-        $db = new DB();
-        $resultado = $db->consultar($sql);
-        if(is_array($resultado)){
-            $produto = array();
-            foreach($resultado as $produtoAux){
-                $novoProduto = new Produto($produtoAux['nome'],$produtoAux['idLiga'],$produtoAux['estoque'],$produtoAux['preço']);
-                $novoProduto->setIdProduto($produtoAux['idProduto']);
-                $novoProduto->setFoto($produtoAux['foto']);
-                $produto[] = $novoProduto;
-        }
-        return $produto;
-        } else {
-            return false;
-        }
-    }
-
-    public static function listarLigue1(){
-        $sql = "SELECT * FROM produto WHERE idliga=2";
-        $db = new DB();
-        $resultado = $db->consultar($sql);
-        if(is_array($resultado)){
-            $produto = array();
-            foreach($resultado as $produtoAux){
-                $novoProduto = new Produto($produtoAux['nome'],$produtoAux['idLiga'],$produtoAux['estoque'],$produtoAux['preço']);
-                $novoProduto->setIdProduto($produtoAux['idProduto']);
-                $novoProduto->setFoto($produtoAux['foto']);
-                $produto[] = $novoProduto;
-        }
-        return $produto;
-        } else {
-            return false;
-        }
-    }
-    public static function listarSerieA(){
-        $sql = "SELECT * FROM produto WHERE idliga=3";
-        $db = new DB();
-        $resultado = $db->consultar($sql);
-        if(is_array($resultado)){
-            $produto = array();
-            foreach($resultado as $produtoAux){
-                $novoProduto = new Produto($produtoAux['nome'],$produtoAux['idLiga'],$produtoAux['estoque'],$produtoAux['preço']);
-                $novoProduto->setIdProduto($produtoAux['idProduto']);
-                $novoProduto->setFoto($produtoAux['foto']);
-                $produto[] = $novoProduto;
-        }
-        return $produto;
-        } else {
-            return false;
-        }
-    }
-    public static function listarPremier(){
-        $sql = "SELECT * FROM produto WHERE idliga=5";
-        $db = new DB();
-        $resultado = $db->consultar($sql);
-        if(is_array($resultado)){
-            $produto = array();
-            foreach($resultado as $produtoAux){
-                $novoProduto = new Produto($produtoAux['nome'],$produtoAux['idLiga'],$produtoAux['estoque'],$produtoAux['preço']);
-                $novoProduto->setIdProduto($produtoAux['idProduto']);
-                $novoProduto->setFoto($produtoAux['foto']);
-                $produto[] = $novoProduto;
-        }
-        return $produto;
-        } else {
-            return false;
-        }
-    }
-    public static function listarBr(){
-        $sql = "SELECT * FROM produto WHERE idliga=8";
-        $db = new DB();
-        $resultado = $db->consultar($sql);
-        if(is_array($resultado)){
-            $produto = array();
-            foreach($resultado as $produtoAux){
-                $novoProduto = new Produto($produtoAux['nome'],$produtoAux['idLiga'],$produtoAux['estoque'],$produtoAux['preço']);
-                $novoProduto->setIdProduto($produtoAux['idProduto']);
-                $novoProduto->setFoto($produtoAux['foto']);
-                $produto[] = $novoProduto;
-        }
-        return $produto;
-        } else {
-            return false;
-        }
-    }
-    public static function listarBundesliga(){
-        $sql = "SELECT * FROM produto WHERE idliga=6";
-        $db = new DB();
-        $resultado = $db->consultar($sql);
-        if(is_array($resultado)){
-            $produto = array();
-            foreach($resultado as $produtoAux){
-                $novoProduto = new Produto($produtoAux['nome'],$produtoAux['idLiga'],$produtoAux['estoque'],$produtoAux['preço']);
-                $novoProduto->setIdProduto($produtoAux['idProduto']);
-                $novoProduto->setFoto($produtoAux['foto']);
-                $produto[] = $novoProduto;
-        }
-        return $produto;
-        } else {
-            return false;
-        }
-    }
     public function editar(){
-        $sql="UPDATE produto set nome=$this->nome, idLiga=$this->idLiga, foto = $this->foto, estoque=$this->estoque, preço=$this->preço WHERE idProduto=$this->idProduto and cpf=$this->cpf";
+        $sql="UPDATE anuncio set Titulo=$this->nome, Descrição=$this->descricao, Preço = $this->preço, Data_de_Criação=$this->dataDeCriacao, Data_de_Validade=$this->dataDeValidade WHERE id=$this->id";
         $db= new DB();
         $resultado=$db->manipular($sql);
         if($resultado==1){
@@ -208,8 +86,8 @@ class produto{
             return false;
         }
     }
-    public static function apagar($idProduto){
-            $sql = "DELETE FROM produto WHERE idProduto = $idProduto";
+    public static function apagar($id){
+            $sql = "DELETE FROM anuncio WHERE ID = $id";
             $db = new DB();
             $resultado = $db->manipular($sql);
             if($resultado==1){
