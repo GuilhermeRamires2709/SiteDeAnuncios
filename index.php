@@ -29,7 +29,7 @@ $anuncio= anuncio::listar();
                     echo "<div class='preco'>" .$anuncioAux->getDescrição()."</div>";
                     echo "<div class='dataDeValidade'>" .$anuncioAux->getDataDeValidade()."</div>";
                     echo "<div class='dataDeCriacao'>" .$anuncioAux->getDataDeCriacao()."</div>";
-                        echo "<input type='submit' name='comprar' value='Comprar'>"; 
+                        echo "<input type='submit' name='Insert' value='Inserir Anúncio'>"; 
                         echo "</div>";
                     }
                 }
