@@ -4,8 +4,9 @@ require_once "DB.php";
 class anuncio{
 
     private int $id;
+    private string $dataDeCriacao;
 
-    public function __construct( private string $nome, private string $descricao, private float $preço, private string $dataDeValidade, private string $dataDeCriacao){
+    public function __construct( private string $nome, private string $descricao, private float $preço, private string $dataDeValidade){
     }
         public function getId():int{
             return $this->id;
