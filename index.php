@@ -1,8 +1,8 @@
 <?php
-include "anuncios.php";
+/*include "anuncios.php";
 require_once "DB.php";
 
-$anuncio= anuncio::listar();
+$anuncio= anuncio::listar(); */
 ?>
 <!DOCTYPE html>
 <html lang="pt-BR">
@@ -20,7 +20,7 @@ $anuncio= anuncio::listar();
     </div>
     </header>        
         <div class="container-p">
-        <?php 
+        <!--<?php 
             if($anuncio!=false){  
                     foreach($anuncio as $anuncioAux){ 
                     echo "<div class='product1'>";
@@ -33,7 +33,7 @@ $anuncio= anuncio::listar();
                         echo "</div>";
                     }
                 }
-            ?>        
+            ?> --->        
         </div>    
         </body>
 </html>

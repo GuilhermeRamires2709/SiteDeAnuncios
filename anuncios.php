@@ -1,36 +1,49 @@
 <?php
 require_once "DB.php";
 
-class anuncio{
+class anuncios{
 
     private int $id;
+    private int $idUser;
+    private array|string $foto;
+    private int $datac;
 
-    public function __construct( private string $nome, private string $descricao, private float $preço, private string $dataDeValidade, private string $dataDeCriacao){
+    public function __construct( private string $nome, private string $descricao, private float $preco, private int $datav){
     }
         public function getId():int{
             return $this->id;
+            
+        }
+        public function getIdUser():int{
+            return $this->idUser;
             
         }
         public function getNome():string{
             return $this->nome;
 
         }
+        public function getFoto():string|array{
+            return $this->foto;
+        }
         public function getDescrição():string{
             return $this->descricao;
 
         }
-        public function getPreço():int{
-            return $this->preço;
+        public function getPreco():int{
+            return $this->preco;
 
         }
-        public function getDataDeValidade():int{
-            return $this->DataDeValidade;
+        public function getDatav():int{
+            return $this->datav;
         }
-        public function getDataDeCriacao():int{
-            return $this->dataDeCriacao;
+        public function getDatac():int{
+            return $this->datac;
         }
         public function setId(int $id){
             $this->id = $id;
+        }
+        public function setIdUser(int $idUser){
+            $this->id = $idUser;
         }
         public function setNome(string $nome){
             $this->nome=$nome;
@@ -38,18 +51,23 @@ class anuncio{
         public function setDescricao(string $descricao){
             $this->descricao=$descricao;    
         }
-        public function setPreço(int $preço){
-            $this->preço=$preço;
+        public function setPreco(int $preco){
+            $this->preco=$preco;
         }
-        public function setDataDeCriacao(int $dataDeCriacao){
-            $this->dataDeCriacao=$dataDeCriacao;
+        public function setFoto(array|string $foto){
+            $this->foto=$foto;    
         }
-        public function setDataDeValidade(int $dataDeValidade){
-            $this->dataDeValidade=$dataDeValidade;
+        public function setDatac(int $datac){
+            $this->datac=$datac;
+        }
+        public function setDatav(int $datav){
+            $this->datav=$datav;
         }
 
         public function inserir(){
-            $sql = "INSERT INTO anuncio (Titulo,Descrição,Preço, Data_de_Validade) VALUES ('$this->nome','$this->descricao','$this->preço', '$this->dataDeValidade')";
+            $destino = uniqid().".".pathinfo($this->foto['name'])['extension'];
+            move_uploaded_file($this->foto['tmp_name'],"fotos/".$destino);
+            $sql = "INSERT INTO anuncio (foto,nome,descricao, preco, datav, idUser) VALUES ('$destino', '$this->nome' , '$this->descricao','$this->preco', '$this->datav', '$this->idUser')";
             $db = new DB();
             $resultado = $db->manipular($sql);
             if($resultado==1){
@@ -65,9 +83,11 @@ class anuncio{
             if(is_array($resultado)){
                 $anuncio = array();
                 foreach($resultado as $anuncioAux){
-                    $novoAnuncio = new anuncio ($anuncioAux['Titulo'],$anuncioAux['Descrição'],$anuncioAux['Preço'],timestamp($anuncioAux['Data_de_Validade']));
-                    $novoAnuncio->setId($anuncioAux['ID']);
-                    $novoAnuncio->setDataDeCriacao($anuncioAux['Data_de_Criação']);
+                    $novoAnuncio = new anuncios ($anuncioAux['nome'],$anuncioAux['descricao'],$anuncioAux['preco'],$anuncioAux['datav']);
+                    $novoAnuncio->setId($anuncioAux['id']);
+                    $novoAnuncio->setId($anuncioAux['idUser']);
+                    $novoAnuncio->setDatac($anuncioAux['datac']);
+                    $novoAnuncio->setFoto($anuncioAux['foto']);
                     $anuncio[] = $novoAnuncio;
             }
             return $anuncio;
@@ -76,7 +96,7 @@ class anuncio{
         }
     }
     public function editar(){
-        $sql="UPDATE anuncio set Titulo=$this->nome, Descrição=$this->descricao, Preço = $this->preço, Data_de_Criação=$this->dataDeCriacao, Data_de_Validade=$this->dataDeValidade WHERE id=$this->id";
+        $sql="UPDATE anuncio set nome=$this->nome, descricao=$this->descricao, preco = $this->preco, datav=$this->datav WHERE id=$this->id AND idUser = $this->idUser";
         $db= new DB();
         $resultado=$db->manipular($sql);
         if($resultado==1){
@@ -87,7 +107,7 @@ class anuncio{
         }
     }
     public static function apagar($id){
-            $sql = "DELETE FROM anuncio WHERE ID = $id";
+            $sql = "DELETE FROM anuncio WHERE ID = '$id'";
             $db = new DB();
             $resultado = $db->manipular($sql);
             if($resultado==1){
