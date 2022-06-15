@@ -1,8 +1,8 @@
 <?php
 //require_once "usuario.php";
-//require_once "DB.php";
+require_once "DB.php";
 
-/*if(isset($_POST['entrar'])){
+if(isset($_POST['entrar'])){
             $novousuario= new usuario($_POST['cpf'],$_POST['senha']);
             $resultado=$novousuario->autenticar();
             if($resultado){
@@ -22,7 +22,7 @@
 }
 if(isset($_POST['cadastrar'])){
     header("location: formUser.php");
-} */       
+}        
 ?>
 <!DOCTYPE html>
 <html lang="pt-BR">

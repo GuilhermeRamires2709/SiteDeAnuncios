@@ -9,6 +9,9 @@ class anuncios{
     private int $datac;
 
     public function __construct( private string $nome, private string $descricao, private float $preco, private int $datav){
+    private string $dataDeCriacao;
+
+    public function __construct( private string $nome, private string $descricao, private float $preço, private string $dataDeValidade){
     }
         public function getId():int{
             return $this->id;
