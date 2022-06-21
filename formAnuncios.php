@@ -1,17 +1,4 @@
 <?php
-require_once "anuncios.php";
- if(isset($_POST['opcao'])){
-    if($_POST['opcao'] == "Inserir"){
-        $newAnuncio = new anuncio($_POST['nome'],$_POST['descricao'],$_POST['preco'],$_POST['data-de-vencimento']);
-        $resultado = $newAnuncio->inserir(); 
-        if($resultado){
-            header("location: index.php");
-        }else{
-            echo "Inserção não realizada";
-        }
-    }
-}
-
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -24,7 +11,7 @@ require_once "anuncios.php";
 </head>
 <body>
     <div class='wrapper'>
-    <form action='formProduto.php' method="POST" enctype='multipart/form-data'>
+    <form action='formProduto.php' method="POST" onsubmit="validar(this);return false;" enctype='multipart/form-data'>
     <?php
       echo "<h1>Novo Produto</h1>";
       ?>
@@ -42,21 +29,21 @@ require_once "anuncios.php";
             ?>
         </div>
         <div class='input-group'>
-            <label for='idLiga'>Descrição</label>
+            <label for='descricao'>Descrição</label>
             <?php
                   echo "<input type='text' id='descricao' name='descrição'>";
 
             ?>
         </div>
         <div class='input-group'>
-            <label for='estoque'>Data de Vencimento</label>
+            <label for='data-de-vencimento'>Data de Vencimento</label>
             <?php
                   echo "<input type='date' id='data-de-vencimento' name='data de Vencimento'>";
 
             ?>
         </div>
         <div class='input-group'>
-            <label for='preço'>Preço</label>
+            <label for='preco'>Preço</label>
             <?php
                   echo "<input type='text' id='preco' name='preço'>";
 
